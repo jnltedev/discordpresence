@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Discord Rich Presence</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+</head>
+<body>
+  <main class="shell">
+    <section class="hero card">
+      <div>
+        <p class="eyebrow">Local Discord RPC Background Service</p>
+        <h1>Change Rich Presence</h1>
+        <p class="muted">Fill in your activity data, save it, and Discord will show it locally.</p>
+      </div>
+      <div class="status" id="status">Loading status...</div>
+    </section>
+
+    <section class="grid">
+      <form class="card form" id="presenceForm" autocomplete="off">
+        <label>
+          Activity Type
+          <select name="activityType">
+            <option value="0">Playing</option>
+            <option value="2">Listening</option>
+            <option value="3">Watching</option>
+            <option value="5">Competing</option>
+          </select>
+        </label>
+
+        <label>
+          Display Name
+          <input name="displayName" maxlength="128" placeholder="e.g. My Status" />
+          <span class="mini-hint">Discord may still show the application name from the Developer Portal. Rich Presence cannot fully hide it.</span>
+        </label>
+
+        <label>
+          Details
+          <input name="details" maxlength="128" placeholder="e.g. Building an app" />
+        </label>
+
+        <label>
+          State
+          <input name="state" maxlength="128" placeholder="e.g. In VS Code" />
+        </label>
+
+        <div class="two">
+          <label>
+            Large Image Key
+            <input name="largeImageKey" maxlength="64" placeholder="e.g. logo" />
+          </label>
+          <label>
+            Large Image Text
+            <input name="largeImageText" maxlength="128" placeholder="Tooltip" />
+          </label>
+        </div>
+
+        <div class="two">
+          <label>
+            Small Image Key
+            <input name="smallImageKey" maxlength="64" placeholder="e.g. online" />
+          </label>
+          <label>
+            Small Image Text
+            <input name="smallImageText" maxlength="128" placeholder="Tooltip" />
+          </label>
+        </div>
+
+        <p class="section-title">Buttons</p>
+        <p class="hint compact">Discord supports up to 2 buttons. You often cannot see your own buttons, but other users can.</p>
+
+        <div class="two">
+          <label>
+            Button 1 Label
+            <input name="button1Label" maxlength="32" placeholder="Open Website" />
+          </label>
+          <label>
+            Button 1 URL
+            <input name="button1Url" type="url" placeholder="https://example.com" />
+          </label>
+        </div>
+
+        <div class="two">
+          <label>
+            Button 2 Label
+            <input name="button2Label" maxlength="32" placeholder="GitHub" />
+          </label>
+          <label>
+            Button 2 URL
+            <input name="button2Url" type="url" placeholder="https://github.com/..." />
+          </label>
+        </div>
+
+        <label class="check">
+          <input name="showTimestamp" type="checkbox" checked />
+          Show timestamp
+        </label>
+
+        <div class="actions">
+          <button type="submit">Save Presence</button>
+          <button type="button" class="danger" id="clearBtn">Clear</button>
+        </div>
+
+        <p class="message" id="message"></p>
+      </form>
+
+      <aside class="card preview">
+        <p class="eyebrow">Preview</p>
+        <div class="discord-card">
+          <div class="app-icon">RP</div>
+          <div>
+            <strong id="previewType">Playing</strong>
+            <p id="previewDetails">Details</p>
+            <p id="previewState">State</p>
+            <div class="preview-buttons" id="previewButtons">
+              <span>Optional button</span>
+            </div>
+          </div>
+        </div>
+        <p class="hint">Your inputs are saved only on the local background service. Press <strong>Clear</strong> to remove both saved copies and clear the Discord activity.</p>
+        <p class="hint">Images only appear when the keys exist as <a id="assetsLink" href="#" target="_blank" rel="noopener noreferrer">Rich Presence Art Assets</a> in the Discord Developer Portal.</p>
+      </aside>
+    </section>
+  </main>
+  <footer id="footer" class="footer"></footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

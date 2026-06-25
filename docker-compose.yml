@@ -1,0 +1,17 @@
+services:
+  rich-presence:
+    build: .
+    container_name: discord-rich-presence-local
+    ports:
+      - "${PORT:-3000}:${PORT:-3000}"
+    env_file:
+      - .env
+    environment:
+      # Important: discord-rpc searches for discord-ipc-* inside this path.
+      # We mount the whole runtime dir, not a single socket, so reconnect works
+      # when Discord is closed and opened again.
+      XDG_RUNTIME_DIR: /run/user/1000
+    volumes:
+      - ${XDG_RUNTIME_DIR:-/run/user/1000}:/run/user/1000
+      - ./data:/app/data
+    restart: unless-stopped
